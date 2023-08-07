@@ -31,8 +31,9 @@ if __name__ == "__main__":
     #   count、name_classes仅在mode='predict'时有效
     #-------------------------------------------------------------------------#
     count           = False
-    name_classes    = ["background","aeroplane", "bicycle", "bird", "boat", "bottle", "bus", "car", "cat", "chair", "cow", "diningtable", "dog", "horse", "motorbike", "person", "pottedplant", "sheep", "sofa", "train", "tvmonitor"]
+    # name_classes    = ["background","aeroplane", "bicycle", "bird", "boat", "bottle", "bus", "car", "cat", "chair", "cow", "diningtable", "dog", "horse", "motorbike", "person", "pottedplant", "sheep", "sofa", "train", "tvmonitor"]
     # name_classes    = ["background","cat","dog"]
+    name_classes    = ["_background_","网状", "1", "2", "碳化物"]
     #----------------------------------------------------------------------------------------------------------#
     #   video_path          用于指定视频的路径，当video_path=0时表示检测摄像头
     #                       想要检测视频，则设置如video_path = "xxx.mp4"即可，代表读取出根目录下的xxx.mp4文件。
@@ -53,15 +54,15 @@ if __name__ == "__main__":
     #   test_interval和fps_image_path仅在mode='fps'有效
     #----------------------------------------------------------------------------------------------------------#
     test_interval = 100
-    fps_image_path  = "img/street.jpg"
+    fps_image_path  = "img/1T-网碳-500×.jpg"
     #-------------------------------------------------------------------------#
     #   dir_origin_path     指定了用于检测的图片的文件夹路径
     #   dir_save_path       指定了检测完图片的保存路径
     #   
     #   dir_origin_path和dir_save_path仅在mode='dir_predict'时有效
     #-------------------------------------------------------------------------#
-    dir_origin_path = "img/"
-    dir_save_path   = "img_out/"
+    dir_origin_path = "/root/autodl-tmp/deeplabv3-plus-pytorch/img/"
+    dir_save_path   = "/root/autodl-tmp/deeplabv3-plus-pytorch/img_out"
     #-------------------------------------------------------------------------#
     #   simplify            使用Simplify onnx
     #   onnx_save_path      指定了onnx的保存路径
@@ -93,6 +94,7 @@ if __name__ == "__main__":
             else:
                 r_image = deeplab.detect_image(image, count=count, name_classes=name_classes)
                 r_image.show()
+                r_image.save("img_out/img.jpg")
 
     elif mode == "video":
         capture=cv2.VideoCapture(video_path)
@@ -163,3 +165,4 @@ if __name__ == "__main__":
         
     else:
         raise AssertionError("Please specify the correct mode: 'predict', 'video', 'fps' or 'dir_predict'.")
+    
